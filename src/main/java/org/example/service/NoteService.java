@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.example.service.NoteNotFoundException.ERROR_MESSAGE;
@@ -35,30 +36,26 @@ public class NoteService {
 
     public void update(Note note) {
         long id = note.getId();
-        Note foundNote = null;
 
-        for (Note existingNote : notes) {
-            if (existingNote.getId() == id) {
-                foundNote = existingNote;
-                break;
-            }
-        }
+        Optional<Note> foundNote = notes.stream()
+                .filter(existingNote -> existingNote.getId() == id)
+                .findFirst();
 
-        if (foundNote != null) {
-            foundNote.setTitle(note.getTitle());
-            foundNote.setContent(note.getContent());
+        if (foundNote.isPresent()) {
+            foundNote.ifPresent(existingNote -> {
+                existingNote.setTitle(note.getTitle());
+                existingNote.setContent(note.getContent());
+            });
         } else {
             throw new NoteNotFoundException(ERROR_MESSAGE + id);
         }
     }
 
-
     public Note getById(long id) {
-        for (Note note : notes) {
-            if (note.getId() == id) {
-                return note;
-            }
-        }
-        throw new NoteNotFoundException(ERROR_MESSAGE + id);
+        Optional<Note> foundNote = notes.stream()
+                .filter(note -> note.getId() == id)
+                .findFirst();
+
+        return foundNote.orElseThrow(() -> new NoteNotFoundException(ERROR_MESSAGE + id));
     }
 }
