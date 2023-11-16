@@ -11,8 +11,8 @@
 </head>
 <body class="container mt-5">
 
-<div class="card">
-    <div class="card-header">
+<div class="card shadow">
+    <div class="card-header shadow" style="background: linear-gradient(to right, #2ecc71, #f1c40f);">
         <h2 class="text-center">Create new Note</h2>
     </div>
     <div class="card-body">
@@ -30,9 +30,8 @@
                 <button type="submit" class="btn btn-success btn-lg">Create</button>
             </div>
         </form>
-
     </div>
 </div>
-
+<a class="btn btn-secondary mt-3" th:href="@{/note/list}">🔙 Back to List</a>
 </body>
 </html>
