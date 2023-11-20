@@ -1,53 +1,46 @@
 package org.example.service;
 
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import org.example.entities.Note;
+import org.example.repository.NoteRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.example.service.NoteNotFoundException.ERROR_MESSAGE;
 
 @Service
+@RequiredArgsConstructor
+@Log4j
 public class NoteService {
-    private final List<Note> notes = new ArrayList<>();
-    private final AtomicInteger idCounter = new AtomicInteger(0);
+    private final NoteRepository noteRepository;
 
-    public List<Note> listAll() {
-        return new ArrayList<>(notes);
+    public List<Note> findAll() {
+        log.info("Finding all notes");
+        return noteRepository.findAll();
     }
 
-    public Note add(Note note) {
-        long id = idCounter.incrementAndGet();
-        note.setId(id);
-        notes.add(note);
-        return note;
+    public void save(Note note) {
+        if (note == null) {
+            throw new IllegalArgumentException("Note cannot be null");
+        }
+        noteRepository.save(note);
+        log.info("Saved note with id: " + note.getId());
     }
 
     public void deleteById(long id) {
-        boolean removed = notes.removeIf(note -> note.getId() == id);
-        if (!removed) {
-            throw new NoteNotFoundException(ERROR_MESSAGE + id);
-        }
+        noteRepository.deleteById(id);
+        log.info("Deleted note with id: " + id);
     }
 
-    public void update(Note note) {
-        long id = note.getId();
 
-        Note foundNote = notes.stream()
-                .filter(existingNote -> existingNote.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new NoteNotFoundException(ERROR_MESSAGE + id));
-
-        foundNote.setTitle(note.getTitle());
-        foundNote.setContent(note.getContent());
-    }
-
-    public Note getById(long id) {
-        return notes.stream()
-                .filter(note -> note.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new NoteNotFoundException(ERROR_MESSAGE + id));
+    public Note findById(Long id) {
+        log.info("Finding note by id: " + id);
+        return noteRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Note not found with id: " + id);
+                    return new EntityNotFoundException("Note not found with id: " + id);
+                });
     }
 }
