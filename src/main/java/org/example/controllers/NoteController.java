@@ -22,7 +22,7 @@ public class NoteController {
 
     @GetMapping("/list")
     public String getNoteList(Model model) {
-        List<Note> noteList = noteService.listAll();
+        List<Note> noteList = noteService.findAll();
         model.addAttribute("notes", noteList);
         return "note/list";
     }
@@ -35,14 +35,14 @@ public class NoteController {
 
     @GetMapping("/edit")
     public String getEditNoteForm(@RequestParam Long id, Model model) {
-        Note note = noteService.getById(id);
+        Note note = noteService.findById(id);
         model.addAttribute("note", note);
         return "note/edit";
     }
 
     @PostMapping("/edit")
     public String editNote(@ModelAttribute Note note) {
-        noteService.update(note);
+        noteService.save(note);
         return "redirect:/note/list";
     }
 
@@ -54,7 +54,7 @@ public class NoteController {
 
     @PostMapping("/create")
     public String createNote(@ModelAttribute Note newNote) {
-        noteService.add(newNote);
+        noteService.save(newNote);
         return "redirect:/note/list";
     }
 
