@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>Edit Note</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
-    <style>
-    </style>
 </head>
 
 <body class="container mt-5">
@@ -18,7 +16,7 @@
             <input type="hidden" name="id" th:value="${note.id}"/>
             <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" class="form-control" id="title" name="title" th:value="${note.title}" required/>
+                <input type="text" class="form-control" id="title" name="title" th:value="${note.title}"/>
             </div>
             <div class="form-group">
                 <label for="content">Content:</label>
@@ -30,9 +28,6 @@
     </div>
 </div>
 <a class="btn btn-secondary mt-3" th:href="@{/note/list}">🔙 Back to List</a>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
