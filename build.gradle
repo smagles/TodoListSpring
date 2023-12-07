@@ -32,6 +32,11 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     implementation group: 'log4j', name: 'log4j', version: '1.2.17'
+
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.12.3'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.12.3'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.3'
+
 }
 
 tasks.named('test') {
