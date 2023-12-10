@@ -1,14 +1,14 @@
 package org.example.security.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("auth")
+@RequestMapping("authentication")
 public class AuthenticationController {
-    @Autowired
-    AuthenticationService authenticationService;
+
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
     public ResponseEntity<JwtResponse> register(
