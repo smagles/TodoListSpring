@@ -1,4 +1,4 @@
-package org.example.security.auth;
+package org.example.security.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class JwtResponse {
+public class JwtRequest {
 
-    private String token;
-
+    private String username;
+    private String password;
 }
