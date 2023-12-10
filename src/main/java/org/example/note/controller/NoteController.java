@@ -1,7 +1,7 @@
-package org.example.controllers;
+package org.example.note.controller;
 
-import org.example.entities.Note;
-import org.example.service.NoteService;
+import org.example.note.model.Note;
+import org.example.note.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ public class NoteController {
     }
 
     @GetMapping("/list")
-    public String getNoteList(Model model) {
+    public String getAllNotes(Model model) {
         List<Note> noteList = noteService.findAll();
         model.addAttribute("notes", noteList);
         return "note/list";

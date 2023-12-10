@@ -1,10 +1,10 @@
-package org.example.service;
+package org.example.note.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.example.entities.Note;
-import org.example.repository.NoteRepository;
+import org.example.note.repo.NoteRepository;
+import org.example.note.model.Note;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,15 +21,27 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public void save(Note note) {
+    public Note save(Note note) {
         if (note == null) {
             throw new IllegalArgumentException("Note cannot be null");
         }
-        noteRepository.save(note);
-        log.info("Saved note with id: " + note.getId());
+        Note savedNote = noteRepository.save(note);
+        log.info("Saved note with id: " + savedNote.getId());
+        return savedNote;
     }
 
-    public void deleteById(long id) {
+    public Note update(Long id, Note updatedNote) {
+        if (noteRepository.existsById(id)) {
+            updatedNote.setId(id);
+            Note savedNote = noteRepository.save(updatedNote);
+            log.info("Updated note with id: " + savedNote.getId());
+            return savedNote;
+        } else {
+            throw new EntityNotFoundException("Note with id " + id + " not found");
+        }
+    }
+
+    public void deleteById(Long id) {
         noteRepository.deleteById(id);
         log.info("Deleted note with id: " + id);
     }
