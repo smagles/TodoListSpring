@@ -1,6 +1,9 @@
-package org.example.security.auth;
+package org.example.security.auth.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.security.auth.service.AuthenticationService;
+import org.example.security.auth.dto.JwtRequest;
+import org.example.security.auth.dto.JwtResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
