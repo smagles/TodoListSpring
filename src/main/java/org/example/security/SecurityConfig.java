@@ -1,7 +1,8 @@
 package org.example.security;
 
 import lombok.RequiredArgsConstructor;
-import org.example.service.UserService;
+import org.example.security.jwt.JwtAuthenticationFilter;
+import org.example.user.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,12 +32,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/auth/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/auth/**"),
+                                AntPathRequestMatcher.antMatcher("/authentication/**")).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 
