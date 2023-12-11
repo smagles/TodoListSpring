@@ -39,14 +39,14 @@ public class NoteRestController {
         return ResponseEntity.ok(noteService.save(note));
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<Note> editNote(@PathVariable Long id, @RequestBody Note note) {
         return ResponseEntity.ok(noteService.update(id, note));
     }
 
     @DeleteMapping("/delete/{id}")
-    ResponseEntity<?> delete(@PathVariable Long id) {
+    ResponseEntity<?> deleteNote(@PathVariable Long id) {
         noteService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
