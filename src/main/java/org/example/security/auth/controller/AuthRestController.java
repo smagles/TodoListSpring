@@ -6,10 +6,11 @@ import org.example.security.auth.dto.JwtRequest;
 import org.example.security.auth.dto.JwtResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("authentication")
-public class AuthenticationController {
+@RequestMapping("/api/v1/auth/")
+public class AuthRestController {
 
     private final AuthenticationService authenticationService;
 
@@ -18,7 +19,6 @@ public class AuthenticationController {
             @RequestBody JwtRequest request) {
         return ResponseEntity.ok(authenticationService.register(request));
     }
-
 
     @PostMapping("/authenticate")
     public ResponseEntity<JwtResponse> authenticate(
