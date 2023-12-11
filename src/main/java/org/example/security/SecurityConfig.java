@@ -32,8 +32,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf
                         .disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/auth/**"),
-                                AntPathRequestMatcher.antMatcher("/authentication/**")).permitAll()
+                        .requestMatchers(AntPathRequestMatcher.antMatcher("/note/**"),
+                                AntPathRequestMatcher.antMatcher("/api/v1/auth/**")).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
