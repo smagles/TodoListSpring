@@ -16,12 +16,12 @@ import java.util.List;
 public class NoteService {
     private final NoteRepository noteRepository;
 
-    public List<Note> findAll() {
+    public List<Note> findAllNotes() {
         log.info("Finding all notes");
         return noteRepository.findAll();
     }
 
-    public Note save(Note note) {
+    public Note createNote(Note note) {
         if (note == null) {
             throw new IllegalArgumentException("Note cannot be null");
         }
@@ -30,7 +30,7 @@ public class NoteService {
         return savedNote;
     }
 
-    public Note update(Long id, Note updatedNote) {
+    public Note updateNote(Long id, Note updatedNote) {
         if (noteRepository.existsById(id)) {
             updatedNote.setId(id);
             Note savedNote = noteRepository.save(updatedNote);
@@ -41,13 +41,13 @@ public class NoteService {
         }
     }
 
-    public void deleteById(Long id) {
+    public void deleteNoteById(Long id) {
         noteRepository.deleteById(id);
         log.info("Deleted note with id: " + id);
     }
 
 
-    public Note findById(Long id) {
+    public Note findNoteById(Long id) {
         log.info("Finding note by id: " + id);
         return noteRepository.findById(id)
                 .orElseThrow(() -> {

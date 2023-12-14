@@ -18,7 +18,7 @@ public class NoteRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<Note>> getAllNotes() {
-        List<Note> notes = noteService.findAll();
+        List<Note> notes = noteService.findAllNotes();
         if (notes.isEmpty()) {
             return new ResponseEntity<>(notes, HttpStatus.NOT_FOUND);
         }
@@ -27,7 +27,7 @@ public class NoteRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Note> getById(@PathVariable("id") Long id) {
-        Note note = noteService.findById(id);
+        Note note = noteService.findNoteById(id);
         if (note == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -36,17 +36,17 @@ public class NoteRestController {
 
     @PostMapping("/create")
     ResponseEntity<Note> createNote(@RequestBody Note note) {
-        return ResponseEntity.ok(noteService.save(note));
+        return ResponseEntity.ok(noteService.createNote(note));
     }
 
     @PutMapping("/{id}")
     ResponseEntity<Note> editNote(@PathVariable Long id, @RequestBody Note note) {
-        return ResponseEntity.ok(noteService.update(id, note));
+        return ResponseEntity.ok(noteService.updateNote(id, note));
     }
 
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteNote(@PathVariable Long id) {
-        noteService.deleteById(id);
+        noteService.deleteNoteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

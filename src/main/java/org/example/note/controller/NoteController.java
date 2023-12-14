@@ -18,27 +18,27 @@ public class NoteController {
 
     @GetMapping("/list")
     public String getAllNotes(Model model) {
-        List<Note> noteList = noteService.findAll();
+        List<Note> noteList = noteService.findAllNotes();
         model.addAttribute("notes", noteList);
         return "note/list";
     }
 
     @PostMapping("/delete")
     public String deleteNote(@RequestParam Long id) {
-        noteService.deleteById(id);
+        noteService.deleteNoteById(id);
         return "redirect:/note/list";
     }
 
     @GetMapping("/edit")
     public String getEditNoteForm(@RequestParam Long id, Model model) {
-        Note note = noteService.findById(id);
+        Note note = noteService.findNoteById(id);
         model.addAttribute("note", note);
         return "note/edit";
     }
 
     @PostMapping("/edit")
     public String editNote(@ModelAttribute Note note) {
-        noteService.save(note);
+        noteService.createNote(note);
         return "redirect:/note/list";
     }
 
@@ -50,7 +50,7 @@ public class NoteController {
 
     @PostMapping("/create")
     public String createNote(@ModelAttribute Note newNote) {
-        noteService.save(newNote);
+        noteService.createNote(newNote);
         return "redirect:/note/list";
     }
 
