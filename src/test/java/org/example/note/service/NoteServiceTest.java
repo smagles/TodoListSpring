@@ -13,7 +13,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class NoteServiceTest {
+class NoteServiceTest {
 
     @Mock
     private NoteRepository noteRepository;
@@ -22,7 +22,7 @@ public class NoteServiceTest {
     private NoteService noteService;
 
     @Test
-    public void testFindAllNotes() {
+    void testFindAllNotes() {
         // Given
         Note note1 = new Note(1L, "Title 1", "Content 1");
         Note note2 = new Note(2L, "Title 2", "Content 2");
