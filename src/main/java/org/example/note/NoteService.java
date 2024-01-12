@@ -1,10 +1,8 @@
-package org.example.note.service;
+package org.example.note;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.example.note.repo.NoteRepository;
-import org.example.note.model.Note;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

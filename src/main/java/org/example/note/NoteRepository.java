@@ -1,6 +1,5 @@
-package org.example.note.repo;
+package org.example.note;
 
-import org.example.note.model.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

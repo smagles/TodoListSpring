@@ -1,4 +1,4 @@
-package org.example.note.model;
+package org.example.note;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

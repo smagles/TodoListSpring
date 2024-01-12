@@ -1,7 +1,8 @@
-package org.example.note.service;
+package org.example.note;
 
+import org.example.note.NoteService;
 import org.example.note.model.Note;
-import org.example.note.repo.NoteRepository;
+import org.example.note.NoteRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;

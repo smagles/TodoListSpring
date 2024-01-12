@@ -1,8 +1,6 @@
-package org.example.note.controller;
+package org.example.note;
 
 import lombok.RequiredArgsConstructor;
-import org.example.note.model.Note;
-import org.example.note.service.NoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +10,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/notes")
-public class NoteRestController {
+public class NoteController {
 
     private final NoteService noteService;
 
