@@ -1,4 +1,4 @@
-package org.example.user.model;
+package org.example.user;
 
 public enum Role {
     USER,

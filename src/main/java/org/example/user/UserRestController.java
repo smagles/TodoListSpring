@@ -1,12 +1,9 @@
-package org.example.user.controller;
+package org.example.user;
 
 import lombok.RequiredArgsConstructor;
-import org.example.user.model.User;
-import org.example.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Optional;
 
 @RestController

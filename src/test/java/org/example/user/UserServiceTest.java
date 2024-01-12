@@ -1,7 +1,8 @@
-package org.example.user.service;
+package org.example.user;
 
-import org.example.user.model.User;
-import org.example.user.repo.UserRepository;
+import org.example.user.User;
+import org.example.user.UserRepository;
+import org.example.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

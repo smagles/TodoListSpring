@@ -1,10 +1,10 @@
-package org.example.user.service;
+package org.example.user;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.example.user.model.User;
-import org.example.user.repo.UserRepository;
+import org.example.user.User;
+import org.example.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
