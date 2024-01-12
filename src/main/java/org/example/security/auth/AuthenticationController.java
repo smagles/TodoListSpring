@@ -1,7 +1,6 @@
-package org.example.security.auth.controller;
+package org.example.security.auth;
 
 import lombok.RequiredArgsConstructor;
-import org.example.security.auth.service.AuthenticationService;
 import org.example.security.auth.dto.JwtRequest;
 import org.example.security.auth.dto.JwtResponse;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/auth/")
-public class AuthRestController {
+public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 

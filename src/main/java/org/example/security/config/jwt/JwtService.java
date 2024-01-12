@@ -1,10 +1,10 @@
-package org.example.security.jwt;
+package org.example.security.config.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j;
-import org.example.user.model.User;
+import org.example.user.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-
 
 @Service
 @Log4j
@@ -48,7 +47,7 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + tokenLifetimeMillis * 60 * 24))
+                .expiration(new Date(System.currentTimeMillis() + tokenLifetimeMillis * 3600 * 24))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -56,6 +55,11 @@ public class JwtService {
 
     boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
+    }
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String userName = extractUsername(token);
+        return (userName.equals(userDetails.getUsername()));
     }
 
     private Date extractExpiration(String token) {

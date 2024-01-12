@@ -1,12 +1,12 @@
-package org.example.security.auth.service;
+package org.example.security.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.example.security.auth.dto.JwtRequest;
 import org.example.security.auth.dto.JwtResponse;
-import org.example.user.model.Role;
-import org.example.user.model.User;
-import org.example.security.jwt.JwtService;
-import org.example.user.service.UserService;
+import org.example.user.Role;
+import org.example.user.User;
+import org.example.security.config.jwt.JwtService;
+import org.example.user.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
