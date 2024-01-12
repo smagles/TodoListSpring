@@ -1,8 +1,8 @@
-package org.example.note.controller;
+package org.example.web;
 
 import lombok.RequiredArgsConstructor;
-import org.example.note.model.Note;
-import org.example.note.service.NoteService;
+import org.example.note.Note;
+import org.example.note.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/note")
-public class NoteController {
+public class WebNoteController {
 
     private final NoteService noteService;
 
