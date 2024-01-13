@@ -8,6 +8,25 @@
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/note/list}">My Notes App</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/note/list}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div class="container mt-5">
     <div class="card shadow">
         <div class="card-header shadow" style="background: linear-gradient(to right, #FFD700, #FFA500);">
@@ -26,10 +45,10 @@
                 <td th:text="${note.title}">Title</td>
                 <td th:text="${note.content}">Content</td>
                 <td>
-                    <a class="btn btn-primary" th:href="@{/note/edit(id=${note.id})}">Edit ✏️ </a>
+                    <a class="btn btn-outline-warning" th:href="@{/note/edit(id=${note.id})}">Edit✏️ </a>
                     <form class="d-inline" th:action="@{/note/delete}" method="post">
                         <input type="hidden" name="id" th:value="${note.id}"/>
-                        <button type="submit" class="btn btn-danger">Delete 🗑️</button>
+                        <button type="submit" class="btn btn-outline-danger">Delete 🗑️</button>
                     </form>
                 </td>
             </tr>
