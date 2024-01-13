@@ -1,50 +1,42 @@
 package org.example.note;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.example.note.request.CreateNoteRequest;
+import org.example.note.request.UpdateNoteRequest;
+import org.example.note.response.*;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/notes")
 public class NoteController {
+    private final NoteServiceImpl noteService;
 
-    private final NoteService noteService;
+    @PostMapping("/create")
+    public CreateNoteResponse create(Principal principal, @RequestBody CreateNoteRequest request) {
+        return noteService.create(principal.getName(), request);
+    }
 
     @GetMapping("/list")
-    public ResponseEntity<List<Note>> getAllNotes() {
-        List<Note> notes = noteService.findAllNotes();
-        if (notes.isEmpty()) {
-            return new ResponseEntity<>(notes, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(notes, HttpStatus.OK);
+    public GetAllUserNotesResponse getUserNotes(Principal principal) {
+        return noteService.getUserNotes(principal.getName());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Note> getById(@PathVariable("id") Long id) {
-        Note note = noteService.findNoteById(id);
-        if (note == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(note, HttpStatus.OK);
+    public GetNoteByIdResponse getNoteById(@RequestParam(name = "id") Long id) {
+        return noteService.getNoteById(id);
     }
 
-    @PostMapping("/create")
-    ResponseEntity<Note> createNote(@RequestBody Note note) {
-        return ResponseEntity.ok(noteService.createNote(note));
-    }
-
-    @PutMapping("/{id}")
-    ResponseEntity<Note> editNote(@PathVariable Long id, @RequestBody Note note) {
-        return ResponseEntity.ok(noteService.updateNote(id, note));
+    @PatchMapping("/edit")
+    public UpdateNoteResponse update(Principal principal, @RequestBody UpdateNoteRequest request) {
+        return noteService.update(principal.getName(), request);
     }
 
     @DeleteMapping("/delete/{id}")
-    ResponseEntity<?> deleteNote(@PathVariable Long id) {
-        noteService.deleteNoteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public DeleteNoteResponse delete(Principal principal, @RequestParam(name = "id") Long id) {
+        return noteService.delete(principal.getName(), id);
     }
 }

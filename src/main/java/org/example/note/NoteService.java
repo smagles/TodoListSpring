@@ -1,56 +1,14 @@
 package org.example.note;
 
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
-import org.springframework.stereotype.Service;
+import org.example.note.request.CreateNoteRequest;
+import org.example.note.request.UpdateNoteRequest;
+import org.example.note.response.*;
 
-import java.util.List;
+public interface NoteService {
+    CreateNoteResponse create(String username, CreateNoteRequest request);
+    UpdateNoteResponse update(String username, UpdateNoteRequest request);
+    DeleteNoteResponse delete(String username, Long id);
+    GetNoteByIdResponse getNoteById(Long id);
+    GetAllUserNotesResponse getUserNotes(String username);
 
-
-@Service
-@RequiredArgsConstructor
-@Log4j
-public class NoteService {
-    private final NoteRepository noteRepository;
-
-    public List<Note> findAllNotes() {
-        log.info("Finding all notes");
-        return noteRepository.findAll();
-    }
-
-    public Note createNote(Note note) {
-        if (note == null) {
-            throw new IllegalArgumentException("Note cannot be null");
-        }
-        Note savedNote = noteRepository.save(note);
-        log.info("Saved note with id: " + savedNote.getId());
-        return savedNote;
-    }
-
-    public Note updateNote(Long id, Note updatedNote) {
-        if (noteRepository.existsById(id)) {
-            updatedNote.setId(id);
-            Note savedNote = noteRepository.save(updatedNote);
-            log.info("Updated note with id: " + savedNote.getId());
-            return savedNote;
-        } else {
-            throw new EntityNotFoundException("Note with id " + id + " not found");
-        }
-    }
-
-    public void deleteNoteById(Long id) {
-        noteRepository.deleteById(id);
-        log.info("Deleted note with id: " + id);
-    }
-
-
-    public Note findNoteById(Long id) {
-        log.info("Finding note by id: " + id);
-        return noteRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Note not found with id: " + id);
-                    return new EntityNotFoundException("Note not found with id: " + id);
-                });
-    }
 }
