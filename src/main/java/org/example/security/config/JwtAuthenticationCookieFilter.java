@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.example.security.config.cookie.CookieService;
-import org.example.security.config.jwt.JwtService;
+import org.example.security.config.cookie.CookieServiceImpl;
+import org.example.security.config.jwt.JwtServiceImpl;
 import org.example.user.UserService;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,9 +24,9 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationCookieFilter extends OncePerRequestFilter {
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtService;
     private final UserService userService;
-    private final CookieService cookieService;
+    private final CookieServiceImpl cookieService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -37,10 +37,10 @@ public class JwtAuthenticationCookieFilter extends OncePerRequestFilter {
 
         if (cookie != null) {
             String jwt = cookie.getValue();
-            String userEmail = jwtService.extractUsername(jwt);
-            if (StringUtils.isNotEmpty(userEmail)
+            String username = jwtService.extractUsername(jwt);
+            if (StringUtils.isNotEmpty(username)
                     && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = userService.loadUserByUsername(userEmail);
+                UserDetails userDetails = userService.loadUserByUsername(username);
 
                 if (userDetails != null) {
                     if (jwtService.isTokenValid(jwt, userDetails)) {

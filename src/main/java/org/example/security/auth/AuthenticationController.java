@@ -1,8 +1,9 @@
 package org.example.security.auth;
 
 import lombok.RequiredArgsConstructor;
-import org.example.security.auth.dto.JwtRequest;
+import org.example.security.auth.dto.LoginRequest;
 import org.example.security.auth.dto.JwtResponse;
+import org.example.security.auth.dto.RegisterRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +16,13 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<JwtResponse> register(
-            @RequestBody JwtRequest request) {
+            @RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<JwtResponse> authenticate(
-            @RequestBody JwtRequest request) {
+            @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 

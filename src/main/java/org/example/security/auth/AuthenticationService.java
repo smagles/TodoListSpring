@@ -1,11 +1,12 @@
 package org.example.security.auth;
 
 import lombok.RequiredArgsConstructor;
-import org.example.security.auth.dto.JwtRequest;
+import org.example.security.auth.dto.LoginRequest;
 import org.example.security.auth.dto.JwtResponse;
+import org.example.security.auth.dto.RegisterRequest;
 import org.example.user.Role;
 import org.example.user.User;
-import org.example.security.config.jwt.JwtService;
+import org.example.security.config.jwt.JwtServiceImpl;
 import org.example.user.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,11 +19,12 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public JwtResponse register(JwtRequest request) {
+    public JwtResponse register(RegisterRequest request) {
         User user = User.builder()
+                .email(request.getEmail())
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
@@ -35,7 +37,7 @@ public class AuthenticationService {
 
     }
 
-    public JwtResponse authenticate(JwtRequest request) {
+    public JwtResponse authenticate(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),

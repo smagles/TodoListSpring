@@ -40,14 +40,15 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthCookieFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(request -> request.requestMatchers(
                                 AntPathRequestMatcher.antMatcher("/api/v1/auth/**"),
-                                AntPathRequestMatcher.antMatcher("/auth/**"),
+                                AntPathRequestMatcher.antMatcher("/register/**"),
+                                AntPathRequestMatcher.antMatcher("/login/**"),
                                 AntPathRequestMatcher.antMatcher("/h2-console/**"))
                         .permitAll()
                         .anyRequest().authenticated())
                 .logout((logout) -> logout.deleteCookies("token")
                         .logoutUrl("/logout"))
-
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+
         return http.build();
     }
 
