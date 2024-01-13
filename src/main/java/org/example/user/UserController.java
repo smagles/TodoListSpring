@@ -9,14 +9,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-public class UserRestController {
+public class UserController {
 
     private final UserService userService;
 
     @GetMapping("/{username}")
     public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        Optional<User> user = userService.findByUsername(username);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        User user = userService.findByUsername(username);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/create")

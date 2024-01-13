@@ -18,19 +18,21 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
 
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByUsername(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        return user.orElseThrow(() -> {
+            log.error("User not found: " + username);
+            return new UsernameNotFoundException("User not found " + username);
+        });
     }
+
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return findByUsername(username)
-                .orElseThrow(() -> {
-                    log.error("User not found: " + username);
-                    return new UsernameNotFoundException("User not found " + username);
-                });
+        return findByUsername(username);
     }
+
 
     public void createNewUser(User user) {
         userRepository.save(user);
