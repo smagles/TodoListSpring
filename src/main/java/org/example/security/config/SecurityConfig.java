@@ -42,6 +42,8 @@ public class SecurityConfig {
                                 AntPathRequestMatcher.antMatcher("/api/v1/auth/**"),
                                 AntPathRequestMatcher.antMatcher("/register/**"),
                                 AntPathRequestMatcher.antMatcher("/login/**"),
+                                AntPathRequestMatcher.antMatcher("/note-service/**"),
+                                AntPathRequestMatcher.antMatcher("/static/**"),
                                 AntPathRequestMatcher.antMatcher("/h2-console/**"))
                         .permitAll()
                         .anyRequest().authenticated())
