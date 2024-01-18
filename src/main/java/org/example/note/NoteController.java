@@ -26,7 +26,7 @@ public class NoteController {
     }
 
     @GetMapping("/{id}")
-    public GetNoteByIdResponse getNoteById(@RequestParam(name = "id") Long id) {
+    public GetNoteByIdResponse getNoteById(@PathVariable(name = "id") Long id) {
         return noteService.getNoteById(id);
     }
 
@@ -36,7 +36,7 @@ public class NoteController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public DeleteNoteResponse delete(Principal principal, @RequestParam(name = "id") Long id) {
+    public DeleteNoteResponse delete(Principal principal, @PathVariable(name = "id") Long id) {
         return noteService.delete(principal.getName(), id);
     }
 }
