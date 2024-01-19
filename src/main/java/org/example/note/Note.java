@@ -1,5 +1,6 @@
 package org.example.note;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,11 +18,12 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "id_user")
     private User user;
 
