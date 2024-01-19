@@ -3,10 +3,10 @@ package org.example.web;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.example.security.auth.dto.LoginRequest;
-import org.example.security.auth.dto.JwtResponse;
-import org.example.security.auth.AuthenticationService;
-import org.example.security.auth.dto.RegisterRequest;
+import org.example.security.auth.request.LoginRequest;
+import org.example.security.auth.response.JwtResponse;
+import org.example.security.auth.AuthenticationServiceImpl;
+import org.example.security.auth.request.RegisterRequest;
 import org.example.security.config.cookie.CookieServiceImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class WebAuthController {
 
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
     private final CookieServiceImpl cookieService;
 
     @GetMapping("/register")
@@ -44,7 +44,7 @@ public class WebAuthController {
 
     @PostMapping("/login")
     public String loginUser(LoginRequest request, HttpServletResponse response) {
-        JwtResponse jwtResponse = authenticationService.authenticate(request);
+        JwtResponse jwtResponse = authenticationService.login(request);
         Cookie tokenCookie = cookieService.createCookie("token", jwtResponse.getToken());
         response.addCookie(tokenCookie);
         return "redirect:/note/list";
