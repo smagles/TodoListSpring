@@ -20,12 +20,13 @@ public class UserService implements UserDetailsService {
 
     public User findByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
-        return user.orElseThrow(() -> {
-            log.error("User not found: " + username);
-            return new UsernameNotFoundException("User not found " + username);
-        });
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            log.info("User not found" + username);
+            return null;
+        }
     }
-
 
     @Override
     @Transactional
