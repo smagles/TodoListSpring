@@ -3,10 +3,10 @@ package org.example.web;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import org.example.note.Note;
-import org.example.note.NoteRepository;
-import org.example.user.User;
-import org.example.user.UserService;
+import org.example.restapi.note.Note;
+import org.example.restapi.note.NoteRepository;
+import org.example.restapi.user.User;
+import org.example.restapi.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

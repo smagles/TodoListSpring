@@ -1,7 +1,7 @@
 package org.example.web;
 
 import lombok.RequiredArgsConstructor;
-import org.example.note.Note;
+import org.example.restapi.note.Note;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
