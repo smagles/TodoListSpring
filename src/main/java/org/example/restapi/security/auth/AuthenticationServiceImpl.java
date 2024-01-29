@@ -34,6 +34,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public JwtResponse register(RegisterRequest request) {
+        Optional<JwtResponse.Error> validationError = validateRegistrationFields(request);
+
+        if (validationError.isPresent()) {
+            return JwtResponse.failed(validationError.get());
+        }
 
         if (userRepository.existsByUsername(request.getUsername())) {
             return JwtResponse.failed(JwtResponse.Error.usernameAlreadyExists);
@@ -43,11 +48,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         if (!request.getPassword().equals(request.getConfirmPassword())) {
             return JwtResponse.failed(JwtResponse.Error.passwordsDoNotMatch);
-        }
-        Optional<JwtResponse.Error> validationError = validateRegistrationFields(request);
-
-        if (validationError.isPresent()) {
-            return JwtResponse.failed(validationError.get());
         }
 
         User user = User.builder()
