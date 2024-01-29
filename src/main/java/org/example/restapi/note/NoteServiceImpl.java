@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.restapi.note.request.CreateNoteRequest;
 import org.example.restapi.note.request.UpdateNoteRequest;
 import org.example.restapi.note.response.*;
-import org.example.note.response.*;
 import org.example.restapi.note.response.CreateNoteResponse;
 import org.example.restapi.user.User;
 import org.example.restapi.user.UserService;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class NoteServiceImpl implements NoteService {
-    private static final int MAX_TITLE_LENGTH = 100;
+    private static final int MAX_TITLE_LENGTH = 255;
     private static final int MAX_CONTENT_LENGTH = 1000;
 
     private final UserService userService;

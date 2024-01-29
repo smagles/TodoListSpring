@@ -2,7 +2,6 @@ package org.example.restapi.note;
 
 import org.example.restapi.note.request.CreateNoteRequest;
 import org.example.restapi.note.request.UpdateNoteRequest;
-import org.example.note.response.*;
 import org.example.restapi.note.response.*;
 
 public interface NoteService {
