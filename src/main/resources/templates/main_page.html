@@ -8,51 +8,11 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <style>
-
-        #container-end {
-    display: flex;
-    justify-content: flex-end;
-}
-
-        #fridge {
-    width: 40%;
-    height: 700px;
-    order: 2;
-}
-
-        #notes {
-    width: 10%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    order: 1;
-    margin-top: 40px;
-    font-size: 130%;
-    margin-bottom: 20px;
-    font-family: cursive;
-    font-weight: bold;
-     height: 500px;
-}
-
-        h1 {
-    font-size: 3.5em;
-    font-family: cursive;
-}
-
-
-       .note {
-    display: flex;
-    text-align: center;
-}
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css">
     <script>
         $(function() {
             $(".note").draggable({ containment: "#container", scroll: false });
         });
-
     </script>
     <title>Fridge Notes</title>
 </head>
