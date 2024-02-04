@@ -1,20 +1,20 @@
 package org.example.web;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.restapi.security.auth.request.LoginRequest;
 import org.example.restapi.security.auth.response.JwtResponse;
 import org.example.restapi.security.auth.AuthenticationServiceImpl;
 import org.example.restapi.security.auth.request.RegisterRequest;
+import org.example.restapi.security.captcha.CaptchaService;
 import org.example.restapi.security.config.cookie.CookieServiceImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,6 +23,7 @@ public class WebAuthController {
 
     private final AuthenticationServiceImpl authenticationService;
     private final CookieServiceImpl cookieService;
+    private final CaptchaService captchaService;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -31,9 +32,18 @@ public class WebAuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(RegisterRequest request) {
+    public String registerUser(RegisterRequest request,
+                               @RequestParam("g-recaptcha-response") String recaptchaResponse, Model model) {
+
         authenticationService.register(request);
-        return "redirect:/login";
+
+        boolean isCaptchaValid = captchaService.validateCaptcha(recaptchaResponse);
+        if (isCaptchaValid) {
+            return "redirect:/login";
+        }
+        model.addAttribute("captchaError", "Invalid reCAPTCHA. Please try again.");
+        return "error";
+
     }
 
     @GetMapping("/login")
@@ -55,4 +65,5 @@ public class WebAuthController {
         SecurityContextHolder.getContext().setAuthentication(null);
         return "redirect:/login";
     }
+
 }

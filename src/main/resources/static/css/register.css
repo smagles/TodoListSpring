@@ -1,0 +1,13 @@
+body {
+    background-color: #f2f2f7;
+}
+
+.container {
+    max-width: 400px;
+    margin-top: 50px;
+}
+
+.bottom-dark-bar {
+    background-color: #333;
+    color: #fff;
+}
