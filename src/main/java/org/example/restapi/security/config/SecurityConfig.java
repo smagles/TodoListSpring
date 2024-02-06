@@ -27,7 +27,9 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final JwtAuthenticationCookieFilter jwtAuthCookieFilter;
+    private final RecaptchaFilter recaptchaFilter;
     private final UserService userService;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,6 +40,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthCookieFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(recaptchaFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(request -> request.requestMatchers(
                                 AntPathRequestMatcher.antMatcher("/api/v1/auth/**"),
                                 AntPathRequestMatcher.antMatcher("/register/**"),

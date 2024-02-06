@@ -1,4 +1,4 @@
-package org.example.restapi.security.captcha;
+package org.example.restapi.security.config.captcha;
 
 import lombok.Data;
 import lombok.extern.log4j.Log4j;
@@ -13,12 +13,9 @@ import java.net.URI;
 @Data
 @Service
 @Log4j
-public class CaptchaService {
+public class RecaptchaService {
     @Value("${google.recaptcha.secret}")
     private String secret;
-
-    @Value("${google.recaptcha.score-threshold}")
-    private double scoreThreshold;
 
     private static final String RECAPTCHA_VERIFY_URL
             = "https://www.google.com/recaptcha/api/siteverify";
@@ -31,17 +28,17 @@ public class CaptchaService {
                     .queryParam("response", response)
                     .build()
                     .toUri();
-            CaptchaResponse captchaResponse = restTemplate.getForObject(verifyUri, CaptchaResponse.class);
+            RecaptchaResponse recaptchaResponse = restTemplate.getForObject(verifyUri, RecaptchaResponse.class);
 
-            if (captchaResponse != null && captchaResponse.isSuccess()) {
+            if (recaptchaResponse != null && recaptchaResponse.isSuccess()) {
                 log.info("reCAPTCHA validation successful.");
                 return true;
             } else {
-                log.warn("reCAPTCHA validation failed" + captchaResponse.getErrorCodes());
+                assert recaptchaResponse != null;
+                log.warn("reCAPTCHA validation failed" + recaptchaResponse.getErrorCodes());
                 return false;
             }
         } catch (RestClientException e) {
-            // Handle RestClientException (e.g., network issues) gracefully
             log.error("Error while validating reCAPTCHA:" + e.getMessage());
             return false;
         }

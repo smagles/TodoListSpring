@@ -1,4 +1,4 @@
-package org.example.restapi.security.captcha;
+package org.example.restapi.security.config.captcha;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CaptchaResponse {
+public class RecaptchaResponse {
     @JsonProperty("success")
     private boolean success;
     @JsonProperty("score")

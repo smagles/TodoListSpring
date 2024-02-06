@@ -1,14 +1,12 @@
 package org.example.web;
 
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.restapi.security.auth.request.LoginRequest;
 import org.example.restapi.security.auth.response.JwtResponse;
 import org.example.restapi.security.auth.AuthenticationServiceImpl;
 import org.example.restapi.security.auth.request.RegisterRequest;
-import org.example.restapi.security.captcha.CaptchaService;
 import org.example.restapi.security.config.cookie.CookieServiceImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,7 +21,6 @@ public class WebAuthController {
 
     private final AuthenticationServiceImpl authenticationService;
     private final CookieServiceImpl cookieService;
-    private final CaptchaService captchaService;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
@@ -32,18 +29,9 @@ public class WebAuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(RegisterRequest request,
-                               @RequestParam("g-recaptcha-response") String recaptchaResponse, Model model) {
-
+    public String registerUser(RegisterRequest request) {
         authenticationService.register(request);
-
-        boolean isCaptchaValid = captchaService.validateCaptcha(recaptchaResponse);
-        if (isCaptchaValid) {
-            return "redirect:/login";
-        }
-        model.addAttribute("captchaError", "Invalid reCAPTCHA. Please try again.");
-        return "error";
-
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
