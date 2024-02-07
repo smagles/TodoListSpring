@@ -2,9 +2,6 @@
 **Username:** user  
 **Password:** user  
 
-# TodoListSpring
-![My Project GIF](https://github.com/smagles/TodoListSpring/blob/master/note-creation-demo.gif)
-
 # Solution Description
 
 The project uses the following technologies:
@@ -16,3 +13,8 @@ The project uses the following technologies:
 | JUnit 5         | Thymeleaf       | Lombok                       |
 | Mockito         | Bootstrap       | Log4j                        |
 | REST API        |                 | CI pipeline (GitHub actions) |
+
+
+# TodoListSpring
+![My Project GIF](https://github.com/smagles/TodoListSpring/blob/master/note-creation-demo.gif)
+
